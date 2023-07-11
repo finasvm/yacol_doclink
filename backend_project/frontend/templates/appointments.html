@@ -15,26 +15,7 @@
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-200px">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="title">
-                            <h4></h4>
-                        </div>
-                        <nav aria-label="breadcrumb" role="navigation">
-                        
-                        </nav>
-                    </div>
-                    <div class="col-md-6 col-sm-12 text-right">
-                        <div>
-                            
-                        
-                        </div>
-                    </div>
-                    
-                </div>
-            
-            </div>
+           
             {% if messages %}
                 {% for msg in messages%}
                 {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
@@ -62,47 +43,68 @@
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th scope="col">Username</th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Payment Method</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Edit status</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Disease</th>
+                            <th scope="col">Doc name</th>
+                            <th scope="col">Schedule</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                           
                             
                         </tr>
+                        
                     </thead>
                     <tbody>
                         
                         <tr>
-                            <td>{{i.user_order.username}}</td>
-                            <td>{{i.Product.name}}</td>
-                            <td>{{i.address.HouseName}}{{i.address.landMark}},{{i.address.city}}<br>{{i.address.pinCode}}-{{i.address.state}}</td>
-                            <td>{{i.Status}}</td>
-                            <td>{{i.Qty}}</td>
-                            <td>{{i.PaymentMethod}}</td>
-                            <td>{{i.Date}}</td>
-                            <td>{{i.Price}}</td>
-                            {% if i.Status == 'cancelled' %}
-                            <td style="color: red;">
-                                 {{i.Status}}
-                            </td>
-                            {% elif i.Status == 'delivered'  %}
-                            <td style="color: green;">
-                                {{i.Status}}
-                            </td>
-                            {% else %}
-                            <td>
-                                {% if i.Status == 'ordered' %}
-                                <button class="btn btn-primary status" type="button" data-list={{i.id}} value="ship">SHIP</button>
-                                 {% elif i.Status == 'shipped' %}
-                                 <button class="btn btn-primary status" type="button" data-list={{i.id}} value='deliver'>DELIVER</button>
-                                 {% endif %}
-                            </td>
-                            {% endif %}
-
+                            <td>Ramesh</td>
+                            <td>Male</td>
+                            <td>27</td>
+                            <td>Fever</td>
+                            <td>Dr. lavanya</td>
+                            <td>19 wed,9:00 am - 10:00 am</td>
+                            <td><button class="btn btn-success " type="button" data-list={{i.id}} value="ship">Approve</button></td>
+                            <td><button class="btn btn-danger " type="button" data-list={{i.id}} value='deliver'>Decline</button></td>
+                           
+                            
+                        </tr>
+                        <tr>
+                            <td>sumesh</td>
+                            <td>Male</td>
+                            <td>45</td>
+                            <td>Stomach ache</td>
+                            <td>Dr. sudarshan</td>
+                            <td>25 tue,5:00 pm - 6:00 pm</td>
+                            <td style="color: green;">Approved</td>
+                            <td></td>
+                           
+                            
+                        </tr>
+                         <tr>
+                            <td>Amar</td>
+                            <td>Male</td>
+                            <td>34</td>
+                            <td>Fever</td>
+                            <td>Dr. lavanya</td>
+                            <td>19 wed,11:00 am - 12:00 pm</td>
+                            <td><button class="btn btn-success " type="button" data-list={{i.id}} value="ship">Approve</button></td>
+                            <td><button class="btn btn-danger " type="button" data-list={{i.id}} value='deliver'>Decline</button></td>
+                           
+                            
+                        </tr>
+                        <tr>
+                            <td>Kavitha</td>
+                            <td>Female</td>
+                            <td>32</td>
+                            <td>Migrane issue</td>
+                            <td>Dr. Joseph</td>
+                            <td>19 wed,9:00 am - 10:00 pm</td>
+                            <td style="color: red;">Declined</td>
+                            <td></td>
+                           
+                           
                             
                         </tr>
                         
