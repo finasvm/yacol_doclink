@@ -14,5 +14,7 @@ class DocSerializer(serializers.ModelSerializer):
         model=Doctor
         fields='__all__'
 
-
-    
+class AppointSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Appointment
+        fields='__all__' 

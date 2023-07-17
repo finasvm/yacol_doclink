@@ -42,6 +42,7 @@
             <div class="table-responsive">
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
+                       
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Gender</th>
@@ -57,57 +58,24 @@
                         
                     </thead>
                     <tbody>
-                        
+                        {% for i in appointments %}
                         <tr>
-                            <td>Ramesh</td>
-                            <td>Male</td>
-                            <td>27</td>
-                            <td>Fever</td>
-                            <td>Dr. lavanya</td>
-                            <td>19 wed,9:00 am - 10:00 am</td>
-                            <td><button class="btn btn-success " type="button" data-list={{i.id}} value="ship">Approve</button></td>
-                            <td><button class="btn btn-danger " type="button" data-list={{i.id}} value='deliver'>Decline</button></td>
-                           
-                            
-                        </tr>
-                        <tr>
-                            <td>sumesh</td>
-                            <td>Male</td>
-                            <td>45</td>
-                            <td>Stomach ache</td>
-                            <td>Dr. sudarshan</td>
-                            <td>25 tue,5:00 pm - 6:00 pm</td>
-                            <td style="color: green;">Approved</td>
+                            <td>{{i.fullname}}</td>
+                            <td>{{i.gender}}</td>
+                            <td>{{i.age}}</td>
+                            <td>{{i.disease}}</td>
+                            <td>{{i.doc.name}}</td>
+                            <td>{{i.sch_date}}-{{i.sch_time}}</td>
+                            {% if i.status == 'ongoing' %}
+                            <td><button class="btn btn-success status" type="button" data-list={{i.id}} value="Approved">Approve</button></td>
+                            <td><button class="btn btn-danger status" type="button" data-list={{i.id}} value='Declined'>Decline</button></td>
+                            {% else %}
+                            <td>{{i.status}}</td>
                             <td></td>
-                           
-                            
+                            {% endif %}
+
                         </tr>
-                         <tr>
-                            <td>Amar</td>
-                            <td>Male</td>
-                            <td>34</td>
-                            <td>Fever</td>
-                            <td>Dr. lavanya</td>
-                            <td>19 wed,11:00 am - 12:00 pm</td>
-                            <td><button class="btn btn-success " type="button" data-list={{i.id}} value="ship">Approve</button></td>
-                            <td><button class="btn btn-danger " type="button" data-list={{i.id}} value='deliver'>Decline</button></td>
-                           
-                            
-                        </tr>
-                        <tr>
-                            <td>Kavitha</td>
-                            <td>Female</td>
-                            <td>32</td>
-                            <td>Migrane issue</td>
-                            <td>Dr. Joseph</td>
-                            <td>19 wed,9:00 am - 10:00 pm</td>
-                            <td style="color: red;">Declined</td>
-                            <td></td>
-                           
-                           
-                            
-                        </tr>
-                        
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -134,12 +102,15 @@ jQuery(document).ready(function($) {
 } );
 </script>
 
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+ <!-- Include all compiled plugins (below), or include individual files as needed -->
+ <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 <script>
 
     $(".status").click(function() {
         var val  =$(this).val();
-        var f = confirm('Do you really want to ' + val + ' the item ?' );
-               if (f== true){
         var id1 = $(this).attr("data-list");
         console.log(id1)
        
@@ -150,19 +121,20 @@ jQuery(document).ready(function($) {
         'id1':id1
 
         }
+        console.log(val)
         $.ajax({
-            url:'/admin1/orderchange/',
+            url:'/orderchange/',
             method:'POST',
             data: data,
             dataType:'json',
             success:function(data){
                 if (data =="true"){
-                    window.location.replace('/admin1/vieworder/')
+                    window.location.replace('/appoint/')
                 
                 }
             }
         })
-    }
+    
     })
 </script>
 

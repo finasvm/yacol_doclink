@@ -26,7 +26,7 @@
                       
                         </nav>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-right">
+                    <!-- <div class="col-md-6 col-sm-12 text-right">
                         <div>
                             <form action="/admin1/reports/" method="POST">
                                 {% csrf_token %}
@@ -50,7 +50,7 @@
                         
                         
                         </div>
-                    </div>
+                    </div> -->
                     
                 </div>
             
@@ -95,47 +95,24 @@
                     </thead>
                     <tbody>
                        
+                        
+                        {% for i in report %}
                         <tr>
-                            <td>Ramesh</td>
-                            <td>Male</td>
-                            <td>27</td>
-                            <td>Fever</td>
-                            <td>Dr. lavanya</td>
-                            <td>19 wed,9:00 am - 10:00 am</td>
-                            <td style="color: green;">Completed</td>
-
-                            
+                            <td>{{i.fullname}}</td>
+                            <td>{{i.gender}}</td>
+                            <td>{{i.age}}</td>
+                            <td>{{i.disease}}</td>
+                            <td>{{i.doc.name}}</td>
+                            <td>{{i.sch_date}}-{{i.sch_time}}</td>
+                            {% if i.status == 'ongoing' %}
+                            <td style="color: blue;">{{i.status}}</td>
+                            {% elif i.status == 'Approved' %}
+                            <td style="color: green;">{{i.status}}</td>
+                            {% else %}
+                            <td style="color: red;">{{i.status}}</td>
+                            {% endif %}
                         </tr>
-                        <tr>
-                            <td>sumesh</td>
-                            <td>Male</td>
-                            <td>45</td>
-                            <td>Stomach ache</td>
-                            <td>Dr. sudarshan</td>
-                            <td>25 tue,5:00 pm - 6:00 pm</td>
-                            <td style="color: red;">Patient not present</td>
-                        </tr>
-                        <tr>
-                        <td>Kavitha</td>
-                        <td>Female</td>
-                        <td>32</td>
-                        <td>Migrane issue</td>
-                        <td>Dr. Joseph</td>
-                        <td>19 wed,9:00 am - 10:00 pm</td>
-                        <td style="color: blueviolet;">In progress</td>
-
-                       
-
-                        </tr>
-                        <tr>
-                            <td>Amar</td>
-                            <td>Male</td>
-                            <td>34</td>
-                            <td>Fever</td>
-                            <td>Dr. lavanya</td>
-                            <td>19 wed,11:00 am - 12:00 pm</td>
-                            <td style="color: burlywood;">upcoming</td>
-                        </tr>
+                        {% endfor %}
                        
                     </tbody>
                 </table>

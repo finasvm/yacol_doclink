@@ -16,18 +16,46 @@ def Signup(request):
     serial=UserSerializer(data=request.data)
     if serial.is_valid():
         serial.save()
-        user= User.objects.get(username=request.data['username'])
+        # user= User.objects.get(username=request.data['username'])
         return Response({'user':serial.data})
     else:
         return Response({'msg':serial.errors},status=status.HTTP_404_NOT_FOUND)
     
 @api_view(['POST'])
+def Appointments(request):
+    serial=AppointSerializer(data=request.data)
+    if serial.is_valid():
+        serial.save()
+        # user= User.objects.get(username=request.data['username'])
+        return Response({'user':serial.data,'details':'success'})
+    else:
+        return Response({'msg':serial.errors},status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])  
+def all_appointments(request):
+    appointments=Appointment.objects.all()
+    serialized_data = []
+    for appointment in appointments:
+        appointment_data = AppointSerializer(appointment).data
+        doctor_id = appointment_data.pop('doc')
+        doctor = Doctor.objects.get(id=doctor_id)
+        doctor_serializer = DocSerializer(doctor)
+        appointment_data['doctor'] = doctor_serializer.data
+        serialized_data.append(appointment_data)
+    
+    return Response(data=serialized_data)
+    
+
+
+
+@api_view(['POST'])
 def Login(request):
     user= get_object_or_404(User,username=request.data['username'])
     if not user.check_password(request.data['password']):
         return Response({'details':'not found'}, status=status.HTTP_404_NOT_FOUND)
+    user_id=user.id
     serialize=UserSerializer(instance=user)
-    return Response(status=status.HTTP_200_OK)
+    return Response({'msg':'success','user_id':user_id},status=status.HTTP_200_OK)
         
 
 class DocRegister(APIView):
@@ -46,6 +74,4 @@ class DocRegister(APIView):
         dish_serialize=DocSerializer(dishes,many=True)
         return Response(data=dish_serialize.data)
                 
-
-
 
