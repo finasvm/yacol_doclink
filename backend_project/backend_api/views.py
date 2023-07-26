@@ -31,20 +31,7 @@ def Appointments(request):
     else:
         return Response({'msg':serial.errors},status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['GET'])  
-def all_appointments(request):
-    appointments=Appointment.objects.all()
-    serialized_data = []
-    for appointment in appointments:
-        appointment_data = AppointSerializer(appointment).data
-        doctor_id = appointment_data.pop('doc')
-        doctor = Doctor.objects.get(id=doctor_id)
-        doctor_serializer = DocSerializer(doctor)
-        appointment_data['doctor'] = doctor_serializer.data
-        serialized_data.append(appointment_data)
-    
-    return Response(data=serialized_data)
-    
+
 
 
 
@@ -61,7 +48,7 @@ def Login(request):
 class DocRegister(APIView):
     def post(self,request,*args,**kwargs):
         try:
-            doc=DocSerializer(data=request.data)
+            doc=DocSerializer(data=request.data)    
             if doc.is_valid():
                 doc.save()
                 return Response(data=doc.data)
@@ -73,5 +60,33 @@ class DocRegister(APIView):
         dishes=Doctor.objects.all()
         dish_serialize=DocSerializer(dishes,many=True)
         return Response(data=dish_serialize.data)
+    
+@api_view(['GET'])  
+def all_appointments(request):
+    appointments=Appointment.objects.all()
+    serialized_data = []
+    for appointment in appointments:
+        appointment_data = AppointSerializer(appointment).data
+        doctor_id = appointment_data.pop('doc')
+        doctor = Doctor.objects.get(id=doctor_id)
+        doctor_serializer = DocSerializer(doctor)
+        appointment_data['doctor'] = doctor_serializer.data
+        serialized_data.append(appointment_data)
+    
+    return Response(data=serialized_data)
+    
+    
+@api_view(['GET'])  
+def All_Result(request,*args,**kwargs):
+    results=Results.objects.all()
+    result_ser=ResultSerializer(results,many=True)
+    return Response(data=result_ser.data)
+
+@api_view(['GET'])  
+def Doc_Dates(request,*args,**kwargs):
+    doc_days=Doctor_Date.objects.all()
+    doc_date=Doctor_Days_serializer(doc_days,many=True)
+    return Response(data=doc_date.data)
+
                 
 

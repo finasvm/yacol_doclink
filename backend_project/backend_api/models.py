@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+import json
 
 # Create your models here.
 
@@ -43,3 +45,19 @@ class Results(models.Model):
     file=models.FileField(upload_to='result_files',null=True,blank=True)
     description=models.CharField(max_length=200,null=True,blank=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='res_user')
+
+class Doctor_Date(models.Model):
+    List_date = models.TextField( blank=True, null=True)
+    List_day = models.TextField( blank=True, null=True)
+    List_time = models.TextField( blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        for field_name in ['List_date', 'List_day', 'List_time']:
+            value = getattr(self, field_name)
+            if isinstance(value, list):
+                setattr(self, field_name, json.dumps(value))
+        super(Doctor_Date, self).save(*args, **kwargs)
+
+    def get_list(self, field_name):
+        value = getattr(self, field_name)
+        return json.loads(value) if value else []

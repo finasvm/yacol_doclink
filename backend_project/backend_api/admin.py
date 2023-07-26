@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Doctor)
 admin.site.register(Appointment)
 admin.site.register(Results)
+admin.site.register(Doctor_Date)

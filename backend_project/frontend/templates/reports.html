@@ -16,45 +16,7 @@
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-200px">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="title">
-                            <h4></h4>
-                        </div>
-                        <nav aria-label="breadcrumb" role="navigation">
-                      
-                        </nav>
-                    </div>
-                    <!-- <div class="col-md-6 col-sm-12 text-right">
-                        <div>
-                            <form action="/admin1/reports/" method="POST">
-                                {% csrf_token %}
-                                <div>
-                                    <label for="dis">From</label>
-                                <input class="fromdate1"  type="date" onchange="from(event)" name="date1" min="2000-06-01" max="2025-12-01" id="date1"> 
-                            </div>
-                           
-                                <div class="justify-conent-left">
-                                    <label for="dis">To</label>
-                                    <input class="todate1" type="date" name="date2" min="2000-06-01" max="2025-12-01" id="todate"><br>
-                        
-                                </div>
-                               
-                                    <div>
-                                        <button class="btn btn-primary" type="submit" >Search</button>
-                                    </div>
-                                
-    
-                            </form>
-                        
-                        
-                        </div>
-                    </div> -->
-                    
-                </div>
-            
-            </div>
+           
             {% if messages %}
                 {% for msg in messages%}
                 {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}

@@ -18,3 +18,17 @@ class AppointSerializer(serializers.ModelSerializer):
     class Meta:
         model=Appointment
         fields='__all__' 
+
+
+
+class ResultSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Results
+        fields = '__all__' 
+
+class Doctor_Days_serializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Doctor_Date
+        fields = '__all__' 

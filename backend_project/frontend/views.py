@@ -56,10 +56,9 @@ class SendResult(CreateView):
     success_url=reverse_lazy('results')
 
     def form_valid(self, form):
-            form.instance.user=self.request.user
-            self.object = form.save()
-            messages.success(self.request,'Results added successfully')
-            return super().form_valid(form)
+        self.object = form.save()
+        messages.success(self.request,'Results added successfully')
+        return super().form_valid(form)
 
 
 
