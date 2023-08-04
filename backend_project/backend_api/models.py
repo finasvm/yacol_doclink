@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import ArrayField
 import json
 
 # Create your models here.
@@ -44,6 +43,7 @@ class Results(models.Model):
     filename=models.CharField(max_length=100)
     file=models.FileField(upload_to='result_files',null=True,blank=True)
     description=models.CharField(max_length=200,null=True,blank=True)
+    image_link=models.CharField(max_length=500,null=True,blank=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='res_user')
 
 class Doctor_Date(models.Model):

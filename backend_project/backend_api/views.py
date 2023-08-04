@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+import json
 
 # Create your views here.
 
@@ -78,15 +79,28 @@ def all_appointments(request):
     
 @api_view(['GET'])  
 def All_Result(request,*args,**kwargs):
-    results=Results.objects.all()
-    result_ser=ResultSerializer(results,many=True)
+    allresults=Results.objects.all()
+    result_ser=ResultSerializer(allresults,many=True)
     return Response(data=result_ser.data)
 
 @api_view(['GET'])  
 def Doc_Dates(request,*args,**kwargs):
     doc_days=Doctor_Date.objects.all()
-    doc_date=Doctor_Days_serializer(doc_days,many=True)
-    return Response(data=doc_date.data)
+    result = []
+    for doctor_date in doc_days:
+        list_date = json.loads(doctor_date.List_date)
+        list_day = json.loads(doctor_date.List_day)
+        list_time = json.loads(doctor_date.List_time)
 
-                
+        # Serialize the data
+        result.append({
+                "id": doctor_date.id,
+                "List_date": list_date,
+                "List_day": list_day,
+                "List_time": list_time
+            })
+        
+    return Response(data=result)
+
+           
 
